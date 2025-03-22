@@ -1,4 +1,5 @@
 import requests
+import pytest
 
 URL = 'https://api.pokemonbattle.ru/v2'
 TOKEN = '71f48e8b32aaf77930835f829308d382'
@@ -13,6 +14,9 @@ create_response = requests.post(f'{URL}/pokemons', headers = HEADER, json=create
 print("Создание покемона:", create_response.json())
 
 pokemon_id = create_response.json().get('id')
+
+if pokemon_id:
+    print(f"ID созданного покемона: {pokemon_id}")
 
 update_data = {
     "pokemon_id": pokemon_id,
@@ -30,4 +34,3 @@ catch_data = {
 
 catch_response = requests.post(f'{URL}/trainers/add_pokeball', headers = HEADER, json=catch_data)
 print("Поймать покемона в покебол:", catch_response.json())
-
